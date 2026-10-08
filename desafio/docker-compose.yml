@@ -1,0 +1,14 @@
+# Preencha os espaços "______".
+
+services:
+  site:
+    build: ______
+    ports:
+      - "______:______"
+    depends_on:
+      - ______
+
+  ______: # nome do serviço da API (o nginx.conf usa esse nome!)
+    image: ______
+    volumes:
+      - ./api:/usr/share/nginx/html:ro # Deixei essa de graça pra você!

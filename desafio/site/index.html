@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Gincana Docker</title>
+  <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  <main>
+    <p class="emoji" id="emoji">⏳</p>
+    <h1 id="titulo">Aguardando a API...</h1>
+    <p class="erro" id="erro"></p>
+    <p class="build" id="build"></p>
+  </main>
+  <script>
+    // A mensagem de vitória vem da API (outro container)
+    fetch("/api/mensagem.txt")
+      .then(r => { if (!r.ok) throw new Error("a API respondeu " + r.status); return r.text(); })
+      .then(t => {
+        document.getElementById("titulo").textContent = t.trim();
+        document.getElementById("emoji").textContent = "🏆";
+      })
+      .catch(e => { document.getElementById("erro").textContent = "Erro: " + e.message; });
+
+    // Prova de que ESTA imagem foi construída por você
+    fetch("/build.txt")
+      .then(r => r.ok ? r.text() : "")
+      .then(t => { document.getElementById("build").textContent = t.trim(); })
+      .catch(() => {});
+  </script>
+</body>
+</html>
